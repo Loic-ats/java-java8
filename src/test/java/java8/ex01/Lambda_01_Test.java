@@ -39,8 +39,11 @@ public class Lambda_01_Test {
         List<Person> personList = Data.buildPersonList(100);
 
         // TODO result ne doit contenir que des personnes adultes (age >= 18)
-        List<Person> result = filter(personList, null);
-
+        
+        PersonPredicate filtrage = (p) -> p.getAge() >= 18 ;
+        
+        List<Person> result = filter(personList, filtrage);
+        
         assert result.size() == 83;
 
         for (Person person : result) {
@@ -56,7 +59,18 @@ public class Lambda_01_Test {
         List<Person> personList = Data.buildPersonList(100);
 
         // TODO result ne doit contenir que des personnes dont le prénom est "first_10"
-        List<Person> result = filter(personList, null);
+        
+        PersonPredicate filtrenom = new PersonPredicate() {
+
+			@Override
+			public boolean test(Person p) {
+				
+				return p.getFirstname().equals("first_10");
+			}
+        	
+        };
+        
+        List<Person> result = filter(personList, filtrenom);
 
         assert result.size() == 1;
         assert result.get(0).getFirstname().equals("first_10");
