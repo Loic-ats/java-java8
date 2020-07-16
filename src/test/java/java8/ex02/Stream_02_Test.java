@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.util.IntSummaryStatistics;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.*;
@@ -24,7 +25,8 @@ public class Stream_02_Test {
         List<Order> orders = new Data().getOrders();
 
         // Trouver la liste des clients ayant déjà passés une commande
-        List<Customer> result = null;
+        
+        List<Customer> result = orders.stream().map(p -> p.getCustomer()).distinct().collect(Collectors.toList());
 
         assertThat(result, hasSize(2));
     }
